@@ -5,7 +5,6 @@ import cookieParser from 'cookie-parser';
 import path from 'path';
 import logger from 'morgan';
 import dotenv from 'dotenv';
-import indexRouter from './routes/index';
 import {connectDB, connectTestDB} from './database/mongoConnect'
 import cors from 'cors';
 
@@ -16,20 +15,14 @@ import usersRoute from './routes/users';
 import applicationsRoute from './routes/application';
 import adminRoutes from './routes/admin';
 
-/* GET home page. */
-// router.get('/', (req: Request, res: Response) => {
-//   res.send('JobFinder server is live');
-// });
-
-
 dotenv.config();
 const app = express();
 
 app.use(express.static(path.join(__dirname, '../', 'public')));
+
 // view engine setup
 app.set('views', path.join(__dirname, '../', 'views'));
 app.set('view engine', 'ejs');
-
 
 app.use(cors());
 app.use(logger('dev'));
@@ -42,7 +35,7 @@ if (process.env.NODE_ENV === 'test') {
 } else {
   connectDB();
 }
-console.log(process.env.NODE_ENV);
+// console.log(process.env.NODE_ENV);
 
 app.use('/', indexRoute);
 app.use('/auth', authRoute);
